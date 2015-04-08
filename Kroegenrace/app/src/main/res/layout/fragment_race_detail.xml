@@ -1,8 +1,9 @@
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.suusnsuus.kroegenrace.DetailFragment">
 
 
@@ -11,21 +12,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/textView"
-        android:layout_gravity="left|top" />
+        android:id="@+id/raceDetailName"
+        android:layout_gravity="left|top"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="show toast"
-        android:id="@+id/button_toast"
-        android:layout_gravity="left|center_vertical" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Large Text"
+        android:id="@+id/raceDetailDescription"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="show dialog"
-        android:id="@+id/button_dialog"
-        android:layout_gravity="left|bottom" />
-</FrameLayout>
+</LinearLayout>

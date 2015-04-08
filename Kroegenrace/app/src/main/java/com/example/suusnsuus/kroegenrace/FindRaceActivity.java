@@ -46,14 +46,15 @@ public class FindRaceActivity extends Activity implements RaceListFragment.OnFra
     }
 
     @Override
-    public void onFragmentInteraction(String text) {
-        Fragment m_cFragement;
+    public void onFragmentInteraction(String name, String description) {
+        Fragment m_cFragment;
 
-        m_cFragement = new RaceDetailFragment();
+        m_cFragment = new RaceDetailFragment();
 
-        m_cFragement.setArguments(new Bundle());
-        m_cFragement.getArguments().putString("text", text);
+        m_cFragment.setArguments(new Bundle());
+        m_cFragment.getArguments().putString("text", name);
+        m_cFragment.getArguments().putString("description", description);
 
-        getFragmentManager().beginTransaction().replace(R.id.container, m_cFragement, "detail").addToBackStack(null).commit();
+        getFragmentManager().beginTransaction().replace(R.id.container, m_cFragment, "detail").addToBackStack(null).commit();
     }
 }

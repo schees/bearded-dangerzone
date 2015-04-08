@@ -64,8 +64,15 @@ public class RaceListFragment extends Fragment {
         this.view = view;
         m_cListView = (ListView) view.findViewById(R.id.listView);
         m_saAdapter = new ListRacesAdapter(view.getContext(), m_sRaceArray);
+        m_sRaceArray.clear();
         GetAllRacesTask getAllRaces = new GetAllRacesTask(this);
         getAllRaces.execute();
+        m_cListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                m_pListener.onFragmentInteraction(m_sRaceArray.get(position).getName(), m_sRaceArray.get(position).getDescription());
+            }
+        });
 
         return view;
     }
@@ -88,7 +95,7 @@ public class RaceListFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(String text);
+        public void onFragmentInteraction(String text, String description);
     }
 
     public class GetAllRacesTask extends AsyncTask<String, Integer, List<Race>> {
