@@ -53,13 +53,14 @@ public class RaceListFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        System.out.println("Creating");
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        System.out.println("Creating view");
         View view = inflater.inflate(R.layout.fragment_race_list, container, false);
         this.view = view;
         m_cListView = (ListView) view.findViewById(R.id.listView);

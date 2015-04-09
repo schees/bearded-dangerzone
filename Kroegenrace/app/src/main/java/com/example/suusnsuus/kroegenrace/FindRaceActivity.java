@@ -16,7 +16,12 @@ public class FindRaceActivity extends Activity implements RaceListFragment.OnFra
         setContentView(R.layout.activity_find_race);
 
         FragmentManager fm = getFragmentManager();
-        if (fm.findFragmentByTag("list") == null)
+
+        if(fm.findFragmentById(R.id.large_race_list_fragment) != null) {
+            //We're in a large layout
+            System.out.println("Large layout found");
+        }
+        else if (fm.findFragmentByTag("list") == null)
         {
             fm.beginTransaction().add(R.id.container, new RaceListFragment(), "list").commit();
         }
@@ -55,6 +60,15 @@ public class FindRaceActivity extends Activity implements RaceListFragment.OnFra
         m_cFragment.getArguments().putString("text", name);
         m_cFragment.getArguments().putString("description", description);
 
-        getFragmentManager().beginTransaction().replace(R.id.container, m_cFragment, "detail").addToBackStack(null).commit();
+        if (getFragmentManager().findFragmentById(R.id.large_race_list_fragment) == null) {
+            getFragmentManager().beginTransaction().replace(R.id.container, m_cFragment, "detail").addToBackStack(null).commit();
+        } else if (findViewById(R.id.detail_fragment_layout) == null){
+            System.out.println("Adding fragment");
+            getFragmentManager().beginTransaction().add(R.id.detailContainer, m_cFragment, "detail").addToBackStack(null).commit();
+        } else {
+            System.out.println("Replacing fragment");
+            getFragmentManager().beginTransaction().replace(R.id.detailContainer, m_cFragment, "detail").addToBackStack(null).commit();
+        }
+
     }
 }
