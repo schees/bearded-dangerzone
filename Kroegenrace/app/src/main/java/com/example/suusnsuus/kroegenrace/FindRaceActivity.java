@@ -51,7 +51,7 @@ public class FindRaceActivity extends Activity implements RaceListFragment.OnFra
     }
 
     @Override
-    public void onFragmentInteraction(String name, String description) {
+    public void onFragmentInteraction(String name, String description, String raceId) {
         Fragment m_cFragment;
 
         m_cFragment = new RaceDetailFragment();
@@ -59,6 +59,7 @@ public class FindRaceActivity extends Activity implements RaceListFragment.OnFra
         m_cFragment.setArguments(new Bundle());
         m_cFragment.getArguments().putString("text", name);
         m_cFragment.getArguments().putString("description", description);
+        m_cFragment.getArguments().putString("raceId", raceId);
 
         if (getFragmentManager().findFragmentById(R.id.large_race_list_fragment) == null) {
             getFragmentManager().beginTransaction().replace(R.id.container, m_cFragment, "detail").addToBackStack(null).commit();

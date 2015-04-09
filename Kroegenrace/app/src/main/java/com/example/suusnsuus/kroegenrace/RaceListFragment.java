@@ -71,7 +71,11 @@ public class RaceListFragment extends Fragment {
         m_cListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                m_pListener.onFragmentInteraction(m_sRaceArray.get(position).getName(), m_sRaceArray.get(position).getDescription());
+                m_pListener.onFragmentInteraction(
+                        m_sRaceArray.get(position).getName(),
+                        m_sRaceArray.get(position).getDescription(),
+                        m_sRaceArray.get(position).get_id()
+                );
             }
         });
 
@@ -96,7 +100,7 @@ public class RaceListFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(String text, String description);
+        public void onFragmentInteraction(String text, String description, String raceId);
     }
 
     public class GetAllRacesTask extends AsyncTask<String, Integer, List<Race>> {

@@ -27,4 +27,19 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="5dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loading"
+        android:id="@+id/gettingActivities"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="20dp" />
+
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ActivityListView"
+        android:layout_gravity="center_horizontal" />
+
+
 </LinearLayout>
