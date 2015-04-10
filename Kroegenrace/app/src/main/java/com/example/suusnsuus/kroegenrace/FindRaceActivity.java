@@ -3,17 +3,23 @@ package com.example.suusnsuus.kroegenrace;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class FindRaceActivity extends Activity implements RaceListFragment.OnFragmentInteractionListener{
-
+public class FindRaceActivity extends ActionBarActivity implements RaceListFragment.OnFragmentInteractionListener{
+    SharedPreferences settings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_race);
+
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         FragmentManager fm = getFragmentManager();
 
@@ -25,6 +31,8 @@ public class FindRaceActivity extends Activity implements RaceListFragment.OnFra
         {
             fm.beginTransaction().add(R.id.container, new RaceListFragment(), "list").commit();
         }
+
+        System.out.println(settings.getString("userId", ""));
     }
 
     @Override
@@ -45,6 +53,12 @@ public class FindRaceActivity extends Activity implements RaceListFragment.OnFra
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_logout) {
+            SharedPreferences.Editor edit = settings.edit();
+            edit.remove("userId");
+            edit.commit();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
