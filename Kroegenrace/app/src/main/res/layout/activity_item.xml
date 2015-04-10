@@ -5,12 +5,31 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/activityListItem"
+        android:id="@+id/activityLocationName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="17dip"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
+
+    <TextView
+        android:id="@+id/activityLocationAddress"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14dip"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
+
+    <TextView
+        android:id="@+id/activityLocationPhone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="17dip"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:textColor="#0000FF"/>
 
 </LinearLayout>

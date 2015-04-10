@@ -59,7 +59,7 @@ public class RaceDetailFragment extends Fragment {
     }
 
     public void updateListView(List<RaceActivity> activities) {
-        activitiesListAdapter = new ListActivitiesAdapter(context, activitynames, activitiesArray);
+        activitiesListAdapter = new ListActivitiesAdapter(context, activitynames, activitiesArray, this);
         activitiesListAdapter.notifyDataSetChanged();
         loading.setText("");
     }
@@ -74,6 +74,15 @@ public class RaceDetailFragment extends Fragment {
         loading = (TextView) view.findViewById(R.id.gettingActivities);
         getActivityListView = (ExpandableListView) view.findViewById(R.id.ActivityListView);
         context = view.getContext();
+        getActivityListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int previousGroup = -1;
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if(groupPosition != previousGroup)
+                    getActivityListView.collapseGroup(previousGroup);
+                previousGroup = groupPosition;
+            }
+        });
 
         return view;
     }
@@ -97,7 +106,7 @@ public class RaceDetailFragment extends Fragment {
 
     public void showText(String text, String description)
     {
-        raceNameView.setText( text );
+        raceNameView.setText(text);
         raceDescriptionView.setText(description);
     }
 
@@ -134,7 +143,6 @@ public class RaceDetailFragment extends Fragment {
                         {
                             RaceActivity foundActivity = convertJsonToActivity(convertedResponse.getJSONObject(i));
                             activities.add(foundActivity);
-                            System.out.println(foundActivity.getDescription());
                         }
                         finalActivities = activities;
                         return activities;
@@ -158,14 +166,19 @@ public class RaceDetailFragment extends Fragment {
                 activitiesArray.put(description, activities.get(i));
             }
 
-            ListActivitiesAdapter adapter = new ListActivitiesAdapter(getActivityListView.getContext(), activitynames, activitiesArray);
+            ListActivitiesAdapter adapter = new ListActivitiesAdapter(getActivityListView.getContext(), activitynames, activitiesArray, getOuter());
             getActivityListView.setAdapter(adapter);
 
+        }
+
+        public RaceDetailFragment getOuter() {
+            return RaceDetailFragment.this;
         }
 
         private RaceActivity convertJsonToActivity(JSONObject json) throws JSONException {
             if (json != null) {
                 RaceActivity activity = new RaceActivity(
+                        (String) json.get("_id"),
                         (String) json.get("google_id"),
                         (String) json.get("description"),
                         (JSONArray) json.get("tags")
