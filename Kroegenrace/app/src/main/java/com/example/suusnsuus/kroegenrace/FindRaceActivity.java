@@ -51,9 +51,7 @@ public class FindRaceActivity extends ActionBarActivity implements RaceListFragm
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_logout) {
+        if (id == R.id.action_logout) {
             SharedPreferences.Editor edit = settings.edit();
             edit.remove("userId");
             edit.commit();
@@ -84,6 +82,11 @@ public class FindRaceActivity extends ActionBarActivity implements RaceListFragm
             System.out.println("Replacing fragment");
             getFragmentManager().beginTransaction().replace(R.id.detailContainer, m_cFragment, "detail").addToBackStack(null).commit();
         }
+    }
 
+    public void onBackPressed()
+    {
+        FragmentManager fm = this.getFragmentManager();
+        fm.popBackStack();
     }
 }
