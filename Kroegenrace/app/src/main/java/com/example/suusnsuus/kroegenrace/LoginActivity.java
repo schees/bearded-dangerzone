@@ -1,6 +1,8 @@
 package com.example.suusnsuus.kroegenrace;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -42,31 +44,37 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         settings = PreferenceManager.getDefaultSharedPreferences(this);
-
-        if (settings.getString("userId", "").equals("")) {
-            loginButton = (Button) findViewById(R.id.loginButton);
-            username = (EditText) findViewById(R.id.username);
-            password = (EditText) findViewById(R.id.password);
-
-            loginButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    String usernameText = username.getText().toString();
-                    String passwordText = password.getText().toString();
-
-                    if(usernameText.equals("") && passwordText.equals("")) {
-                        //Show toast je moet gegevens invullen
-                        System.out.println("lege inlog");
-                    } else {
-                        LoginTask loginTask = new LoginTask(view.getContext());
-                        loginTask.execute(usernameText, passwordText);
-                    }
-                }
-            });
-        } else {
-            Intent intent = new Intent(this, FindRaceActivity.class);
-            startActivity(intent);
-        }
+        System.out.println("oncreate");
     }
+
+    @Override
+    protected void onStart() {
+       super.onStart();
+       System.out.println("start");
+       if (settings.getString("userId", "").equals("")) {
+           loginButton = (Button) findViewById(R.id.loginButton);
+           username = (EditText) findViewById(R.id.username);
+           password = (EditText) findViewById(R.id.password);
+
+           loginButton.setOnClickListener(new View.OnClickListener() {
+               public void onClick(View view) {
+                   String usernameText = username.getText().toString();
+                   String passwordText = password.getText().toString();
+
+                   if(usernameText.equals("") && passwordText.equals("")) {
+                       //Show toast je moet gegevens invullen
+                       System.out.println("lege inlog");
+                   } else {
+                       LoginTask loginTask = new LoginTask(view.getContext());
+                       loginTask.execute(usernameText, passwordText);
+                   }
+               }
+           });
+       } else {
+           Intent intent = new Intent(this, FindRaceActivity.class);
+           startActivity(intent);
+       }
+   }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -131,6 +139,17 @@ public class LoginActivity extends ActionBarActivity {
             if(s == null || s.equals("Invalid Credentials")) {
                 username.setText("");
                 password.setText("");
+                // 1. Instantiate an AlertDialog.Builder with its constructor
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                builder.setMessage("Invalid credentials").setTitle("Login failed");
+                builder.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Dismiss
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 return;
             }
             String userId = getUserIdFromResponse(s);

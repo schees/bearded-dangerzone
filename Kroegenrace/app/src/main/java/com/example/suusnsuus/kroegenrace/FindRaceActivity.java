@@ -83,10 +83,4 @@ public class FindRaceActivity extends ActionBarActivity implements RaceListFragm
             getFragmentManager().beginTransaction().replace(R.id.detailContainer, m_cFragment, "detail").addToBackStack(null).commit();
         }
     }
-
-    public void onBackPressed()
-    {
-        FragmentManager fm = this.getFragmentManager();
-        fm.popBackStack();
-    }
 }
