@@ -29,7 +29,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -44,13 +43,11 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         settings = PreferenceManager.getDefaultSharedPreferences(this);
-        System.out.println("oncreate");
     }
 
     @Override
     protected void onStart() {
        super.onStart();
-       System.out.println("start");
        if (settings.getString("userId", "").equals("")) {
            loginButton = (Button) findViewById(R.id.loginButton);
            username = (EditText) findViewById(R.id.username);
@@ -62,8 +59,7 @@ public class LoginActivity extends ActionBarActivity {
                    String passwordText = password.getText().toString();
 
                    if(usernameText.equals("") && passwordText.equals("")) {
-                       //Show toast je moet gegevens invullen
-                       System.out.println("lege inlog");
+                        System.out.println("leeg");
                    } else {
                        LoginTask loginTask = new LoginTask(view.getContext());
                        loginTask.execute(usernameText, passwordText);
@@ -121,7 +117,6 @@ public class LoginActivity extends ActionBarActivity {
                     return "Invalid Credentials";
                 }
                 String response = EntityUtils.toString(httpresponse.getEntity());
-                System.out.println("response login: " + response);
                 return response;
 
             } catch (ClientProtocolException e) {

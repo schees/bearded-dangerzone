@@ -39,8 +39,6 @@ import java.util.List;
  * Created by Suzanne on 3-4-2015.
  */
 public class RaceDetailFragment extends Fragment {
-    private static final String SELECTED = "selected value";
-    private static final String TEST_INT = "test int";
 
     private TextView                raceNameView;
     private TextView                raceDescriptionView;
@@ -80,7 +78,7 @@ public class RaceDetailFragment extends Fragment {
             @Override
             public void onGroupExpand(int groupPosition) {
                 if(groupPosition != previousGroup)
-                    getActivityListView.collapseGroup(previousGroup);
+                getActivityListView.collapseGroup(previousGroup);
                 previousGroup = groupPosition;
             }
         });
@@ -94,11 +92,9 @@ public class RaceDetailFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if ( bundle != null ) {
-            System.out.println("Created Activity");
             raceName = bundle.getString("text");
             raceDescription = bundle.getString("description");
             raceId = bundle.getString("raceId");
-            System.out.println("OnCreated raceId: " + raceId);
             showText(raceName, raceDescription);
             GetAllActivitiesTask getActivities = new GetAllActivitiesTask(this);
             getActivities.execute();
@@ -120,7 +116,6 @@ public class RaceDetailFragment extends Fragment {
         }
         @Override
         protected List<RaceActivity> doInBackground(String... params) {
-            System.out.println("In task");
             List<RaceActivity> finalActivities = new ArrayList<RaceActivity>();
             String url = "http://restrace-api.herokuapp.com/race/" + raceId + "/activities";
             System.out.println(url);
